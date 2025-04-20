@@ -273,13 +273,18 @@ const displayData = (prayersTimes = "", quran) => {
       const souraSrc = card.getAttribute("data-audio");
       audioPlayer.src = souraSrc;
       audioPlayer.play();
+       if (audioPlayer !== undefined) {
+          audioPlayer
+            .then((_) => {})
+            .catch((error) => {
+              // Auto-play was prevented
+              // Show paused UI.
+              console.error(error);
+            });
+        }
+    
     });
   });
 };
 
-const obj = {
-  name: "omar",
-  age: 20,
-};
 
-console.log();
