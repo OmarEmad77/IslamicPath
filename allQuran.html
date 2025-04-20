@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Quran</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Raleway:wght@300;400;500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <br />
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+      <div class="container">
+        <div class="logo">
+          <h1>IslamicPath</h1>
+          <span class="arabic-logo">الطريق الإسلامي</span>
+        </div>
+        <div class="menu-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <ul class="nav-links">
+          <li><a href="/index.html">Home</a></li>
+          <li><a href="/index.html">Prayer Times</a></li>
+          <li><a href="/index.html">Quran</a></li>
+          <li><a href="/index.html">Articles</a></li>
+          <li><a href="/index.html">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <section id="quran" class="quran-section">
+      <div class="container">
+        <h2 class="section-title">Quranic Verses</h2>
+        <p class="section-subtitle">
+          Find peace and wisdom in the words of Allah
+        </p>
+
+        <div class="quran-verses"></div>
+      </div>
+      <audio id="quranAudio" controls style="display: none"></audio>
+    </section>
+
+    <script>
+      if (localStorage.getItem("visited_AllQuran")) {
+        setTimeout(() => {
+          window.location.href = "spinner.html";
+        }, 500);
+      }
+      localStorage.setItem("visited_AllQuran", "true");
+
+      setTimeout(() => {
+        localStorage.removeItem("visited_AllQuran");
+      }, 5000);
+    </script>
+    <script defer src="script.js"></script>
+    <script defer src="allQuran.js"></script>
+  </body>
+</html>

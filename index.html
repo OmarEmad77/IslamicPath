@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IslamicPath - Your Spiritual Journey</title>
+    <meta
+      name="description"
+      content="An Islamic website providing prayer times, Quranic verses, and Islamic resources to guide Muslims on their spiritual journey."
+    />
+    <meta name="author" content="IslamicPath" />
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Raleway:wght@300;400;500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="script.js"></script>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+      <div class="container">
+        <div class="logo">
+          <h1>IslamicPath</h1>
+          <span class="arabic-logo">الطريق الإسلامي</span>
+        </div>
+        <div class="menu-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <ul class="nav-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#prayers">Prayer Times</a></li>
+          <li><a href="#quran">Quran</a></li>
+          <li><a href="#articles">Articles</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <h2>Begin Your Spiritual Journey</h2>
+          <div class="arabic-subtitle">بسم الله الرحمن الرحيم</div>
+          <p>
+            Find guidance through prayer times, Quranic wisdom, and Islamic
+            teachings
+          </p>
+          <div class="hero-buttons">
+            <a href="#prayers" class="btn btn-primary">Prayer Times</a>
+            <a href="#quran" class="btn btn-secondary">Read Quran</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Prayer Times Section -->
+    <section id="prayers" class="prayer-times">
+      <div class="container">
+        <h2 class="section-title">Prayer Times</h2>
+        <p class="section-subtitle">
+          Connecting with Allah five times a day helps us stay mindful and
+          present in our faith.
+        </p>
+
+        <div class="prayer-cards">
+          <div class="prayer-card">
+            <div class="arabic-name">الفجر</div>
+            <div class="prayer-name">Fajr</div>
+            <div class="prayer-time">5:12 AM</div>
+          </div>
+
+          <div class="prayer-card">
+            <div class="arabic-name">الظهر</div>
+            <div class="prayer-name">Dhuhr</div>
+            <div class="prayer-time">12:30 PM</div>
+          </div>
+
+          <div class="prayer-card">
+            <div class="arabic-name">العصر</div>
+            <div class="prayer-name">Asr</div>
+            <div class="prayer-time">3:45 PM</div>
+          </div>
+
+          <div class="prayer-card">
+            <div class="arabic-name">المغرب</div>
+            <div class="prayer-name">Maghrib</div>
+            <div class="prayer-time">6:20 PM</div>
+          </div>
+
+          <div class="prayer-card">
+            <div class="arabic-name">العشاء</div>
+            <div class="prayer-name">Isha</div>
+            <div class="prayer-time">8:00 PM</div>
+          </div>
+        </div>
+
+        <p class="prayer-note">Prayer times are calculated for your Country.</p>
+      </div>
+    </section>
+
+    <!-- Quran Section -->
+    <section id="quran" class="quran-section">
+      <div class="container">
+        <h2 class="section-title">Quranic Verses</h2>
+        <p class="section-subtitle">
+          Find peace and wisdom in the words of Allah
+        </p>
+
+        <div class="quran-verses">
+          <div class="verse-card">
+            <div class="verse-arabic">إِنَّ مَعَ الْعُسْرِ يُسْرًا</div>
+            <div class="verse-translation">
+              "Indeed, with hardship comes ease."
+            </div>
+            <div class="verse-reference">Surah Ash-Sharh 94:6</div>
+          </div>
+
+          <div class="verse-card">
+            <div class="verse-arabic">
+              وَإِذَا سَأَلَكَ عِبَادِي عَنِّي فَإِنِّي قَرِيبٌ
+            </div>
+            <div class="verse-translation">
+              "And when My servants ask you concerning Me - indeed I am near."
+            </div>
+            <div class="verse-reference">Surah Al-Baqarah 2:186</div>
+          </div>
+
+          <div class="verse-card">
+            <div class="verse-arabic">
+              فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُوا لِي وَلَا تَكْفُرُونِ
+            </div>
+            <div class="verse-translation">
+              "So remember Me; I will remember you. And be grateful to Me and do
+              not deny Me."
+            </div>
+            <div class="verse-reference">Surah Al-Baqarah 2:152</div>
+          </div>
+          <div></div>
+          <div class="verse-card-end">
+            <a href="allQuran.html">Go to More ...</a>
+          </div>
+        </div>
+      </div>
+      <audio id="quranAudio" controls style="display: none"></audio>
+    </section>
+
+    <!-- Articles Section -->
+    <section id="articles" class="articles-section">
+      <div class="container">
+        <h2 class="section-title">Islamic Articles</h2>
+        <p class="section-subtitle">
+          Explore Islamic teachings and guidance for everyday life
+        </p>
+
+        <div class="articles-grid">
+          <article class="article-card">
+            <div
+              class="article-image"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1466442929976-97f336a657be?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80');
+              "
+            ></div>
+            <div class="article-content">
+              <h3>The Five Pillars of Islam</h3>
+              <p>
+                Explore the fundamental practices that form the foundation of
+                the Islamic faith and guide Muslims in their daily lives.
+              </p>
+              <a
+                href="https://www.metmuseum.org/learn/educators/curriculum-resources/art-of-the-islamic-world/unit-one/the-five-pillars-of-islam?utm_source=chatgpt.com"
+                class="read-more"
+                >Read More</a
+              >
+            </div>
+          </article>
+
+          <article class="article-card">
+            <div
+              class="article-image"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1492321936769-b49830bc1d1e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80');
+              "
+            ></div>
+            <div class="article-content">
+              <h3>Understanding Ramadan</h3>
+              <p>
+                Learn about the holy month of Ramadan, its significance,
+                practices, and the spiritual benefits it offers to Muslims.
+              </p>
+              <a
+                href="https://chs.uky.edu/about/news/understanding-ramadan?utm_source=chatgpt.com"
+                class="read-more"
+                >Read More</a
+              >
+            </div>
+          </article>
+
+          <article class="article-card">
+            <div
+              class="article-image"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1469041797191-50ace28483c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80');
+              "
+            ></div>
+            <div class="article-content">
+              <h3>The Journey of Hajj</h3>
+              <p>
+                Discover the spiritual significance of the pilgrimage to Mecca
+                and the rituals that Muslims perform during this sacred journey.
+              </p>
+              <a
+                href="https://www.aljazeera.com/news/2023/6/21/what-is-hajj-a-step-by-step-guide-to-the-muslim-pilgrimage?utm_source=chatgpt.com"
+                class="read-more"
+                >Read More</a
+              >
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+      <div class="container">
+        <h2 class="section-title">Contact Us</h2>
+        <p class="section-subtitle">
+          We're here to answer your questions and provide guidance
+        </p>
+
+        <div class="contact-container">
+          <div class="contact-info">
+            <div class="info-item">
+              <h3>Email</h3>
+              <p>omare4189@gmail.com</p>
+            </div>
+            <div class="info-item">
+              <h3>Phone</h3>
+              <p>+20 (111) 215-4338</p>
+            </div>
+            <div class="info-item">
+              <h3>Address</h3>
+              <p>123 Faith Street, Egypt , ZEFTA</p>
+            </div>
+          </div>
+
+          <form class="contact-form">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="5"
+                required
+              ></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-logo">
+            <h3>IslamicPath</h3>
+            <p>Guiding your spiritual journey</p>
+          </div>
+
+          <div class="footer-links">
+            <div class="link-group">
+              <h4>Quick Links</h4>
+              <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#prayers">Prayer Times</a></li>
+                <li><a href="#quran">Quran</a></li>
+                <li><a href="#articles">Articles</a></li>
+              </ul>
+            </div>
+
+            <div class="link-group">
+              <h4>Resources</h4>
+              <ul>
+                <li>
+                  <a href="https://hijri-calendar.com/en/">Islamic Calendar</a>
+                </li>
+                <li>
+                  <a
+                    href="https://thethinkingmuslim.com/2018/09/18/45-supplications-duas-every-muslim-should-know/"
+                    >Duas & Supplications</a
+                  >
+                </li>
+                <li><a href="https://www.islamicbook.ws/">Islamic Books</a></li>
+                <li>
+                  <a
+                    href="https://www.sahlah.net/blog/26-fun-islamic-activities-for-adults"
+                    >Community Events</a
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <div class="link-group">
+              <h4>Connect</h4>
+              <ul>
+                <li>
+                  <a href="https://www.facebook.com/okaomar.emad?locale=ar_AR"
+                    >Facebook</a
+                  >
+                </li>
+                <li><a href="https://x.com/OmarEma67201669">Twitter</a></li>
+                <li>
+                  <a href="https://www.instagram.com/omaremad2287/"
+                    >Instagram</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="https://www.youtube.com/channel/UCWZEG9O221KaXiWThBtMHQQ"
+                    >YouTube</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="copyright">
+          <p>&copy; 2025 IslamicPath. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Simple JavaScript for mobile menu toggle
+      document
+        .querySelector(".menu-toggle")
+        .addEventListener("click", function () {
+          document.querySelector(".nav-links").classList.toggle("active");
+          this.classList.toggle("active");
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Spinner</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f7f8fc;
+        margin: 0;
+      }
+
+      .spinner {
+        width: 80px;
+        height: 80px;
+        border: 8px solid transparent;
+        border-top: 8px solid #ff6b6b;
+        border-right: 8px solid #6bcff6;
+        border-bottom: 8px solid #6bf6a3;
+        border-left: 8px solid #f6f66b;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="spinner"></div>
+
+    <script>
+      setTimeout(() => {
+        if (localStorage.getItem("visited_AllQuran")) {
+          window.location.href = "allQuran.html";
+          localStorage.clear();
+        } else if (localStorage.getItem("visited_Soura")) {
+          window.location.href = "soura.html";
+          localStorage.clear();
+        }
+      }, 1000);
+    </script>
+  </body>
+</html>
