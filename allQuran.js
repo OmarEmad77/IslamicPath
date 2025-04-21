@@ -40,16 +40,18 @@ const allQuran = () => {
 
         const souraSrc = card.getAttribute("data-audio");
         audioPlayer.src = souraSrc;
-        audioPlayer.play();
-         if (audioPlayer !== undefined) {
-          audioPlayer
-            .then((_) => {})
-            .catch((error) => {
-              // Auto-play was prevented
-              // Show paused UI.
-              console.error(error);
-            });
-        }
+        const audioPromise = audioPlayer.play();
+      console.log(audioPromise);
+
+      if (audioPromise !== undefined) {
+        audioPromise
+          .then((_) => {})
+          .catch((error) => {
+            // Auto-play was prevented
+            // Show paused UI.
+            console.error(error);
+          });
+      }
       });
     });
   }, 1000);
