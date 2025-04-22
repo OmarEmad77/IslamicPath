@@ -1,18 +1,54 @@
 prayerTimesUi = document.querySelector("br");
 prayerTimesUi.replaceWith("");
 
-window.onload = () => {
-  setTimeout(() => {
-    document.body.style.display = "block";
-  }, 500);
-};
-document.body.style.display = "none";
+let allSourasView;
 const allQuranContainer = document.querySelector(".quran-verses");
 
+window.onload = async () => {
+  setTimeout(() => {
+    playSoura();
+    document.body.style.display = "block";
+  }, 1500);
+};
+document.body.style.display = "none";
+
+document
+  .getElementById("reciterSelect")
+  .addEventListener("change", async function (e) {
+    selectSheikh = this.value;
+    console.log(selectSheikh);
+    // هات الأصوات الجديدة بناءً على القارئ المختار
+    // allSouras = await fetchData(
+    //   "https://api.quran.com/api/v4/chapter_recitations/" + selectSheikh
+    // );
+    // localStorage.setItem("selectSheikh", selectSheikh);
+
+    fetchSouraData();
+    playSoura();
+  });
+
+// جلب الداتا بتاع كل سورة وتغيرها بعد اختيار كل شيخ وعمل مقارنه بين عدد عناصر الاري اللي راجع وعدد الكار واختيار الاصغر وتغير ال سورس لكل كارد
+async function fetchSouraData() {
+  allSourasView = await fetchData(
+    "https://api.quran.com/api/v4/chapter_recitations/" + selectSheikh
+  );
+
+  const verseCards = document.querySelectorAll(".verse-card");
+  const audioFiles = allSourasView.audio_files;
+  const count = Math.min(verseCards.length, audioFiles.length);
+
+  for (let i = 0; i < count; i++) {
+    verseCards[i].dataset.audio = audioFiles[i].audio_url;
+  }
+}
+
+// عرض الداتا بتاع كل سوره
 const allQuran = () => {
   quranViewTrue = true;
-  setTimeout(() => {
-    console.log(quran.data);
+  setTimeout(async () => {
+    console.log(selectSheikh);
+
+    console.log(quran);
     quran.data.forEach((ele, i) => {
       const souraCard = `
         <div class="verse-card" data-audio = '${allSouras.audio_files[i].audio_url}'>
@@ -25,7 +61,9 @@ const allQuran = () => {
         </div>
        
       `;
+
       allQuranContainer.insertAdjacentHTML("beforeend", souraCard);
+
       allQuranContainer.style.direction = "rtl";
       // allQuranContainer.addEventListener("click", function () {
       //   window.location.href = "soura.html";
@@ -34,26 +72,6 @@ const allQuran = () => {
     document
       .querySelectorAll(".AyahsNum")
       .forEach((e) => (e.style.color = "#333333"));
-    document.querySelectorAll(".verse-card").forEach((card) => {
-      card.addEventListener("click", () => {
-        console.log("play");
-
-        const souraSrc = card.getAttribute("data-audio");
-        audioPlayer.src = souraSrc;
-        const audioPromise = audioPlayer.play();
-      console.log(audioPromise);
-
-      if (audioPromise !== undefined) {
-        audioPromise
-          .then((_) => {})
-          .catch((error) => {
-            // Auto-play was prevented
-            // Show paused UI.
-            console.error(error);
-          });
-      }
-      });
-    });
   }, 1000);
 };
 allQuran();
