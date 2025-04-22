@@ -3,13 +3,22 @@ console.log("hello from qasr bagdad");
 // UI Elements
 let prayerTimesUi = document.querySelector("#prayers");
 let quranUi = document.querySelector("#quran");
+// player for Sour
 const audioPlayer = document.getElementById("quranAudio");
+
 // Global Obj from API
 let prayersTimes;
 let quran;
 let quranViewTrue = false;
 let allSouras;
+let selectSheikh = 1;
 
+window.onload = async () => {
+  setTimeout(() => {
+    playSoura();
+  }, 1000);
+};
+// handel the time line
 const today = new Date();
 const options = {
   weekday: "long", // اسم اليوم
@@ -17,15 +26,14 @@ const options = {
   month: "long", // اسم الشهر
   day: "numeric",
 };
-
 const arabicDate = today.toLocaleDateString("ar-EG", options);
 
-console.log(arabicDate);
-
+// to delay anything
 const delay = (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
 
+// To Get Data From APIS
 const fetchData = async function (url) {
   try {
     let response = await fetch(url);
@@ -39,6 +47,7 @@ const fetchData = async function (url) {
   }
 };
 
+// View DAta while we Fetching lar and lon of user to show Prayers Times on his Postion
 const viewData = async () => {
   document
     .querySelectorAll(".prayer-time")
@@ -63,12 +72,14 @@ const viewData = async () => {
           );
           quran = await fetchData(`https://api.alquran.cloud/v1/surah`);
           console.log(prayersTimes.data, prayersTimes.data, quran.data[0]);
-          allSouras = await fetchData(
-            `https://api.quran.com/api/v4/chapter_recitations/7`
-          );
-          console.log(allSouras);
+          console.log(selectSheikh);
+          console.log(reciterSelect);
 
+          allSouras = await fetchData(
+            `https://api.quran.com/api/v4/chapter_recitations/${selectSheikh}`
+          );
           displayData(prayersTimes, quran);
+          console.log(allSouras);
         })
         .catch((error) => {
           console.error("حصل خطأ في جلب اسم البلد:", error);
@@ -81,6 +92,7 @@ const viewData = async () => {
 };
 viewData();
 
+//Display السور بطريقة عشوائية كل مره
 const displayData = (prayersTimes = "", quran) => {
   prayerTimesUi.innerHTML = `
 <div class="container">
@@ -159,6 +171,25 @@ const displayData = (prayersTimes = "", quran) => {
       <h2 class="section-title">Quranic Verses</h2>
       <p class="section-subtitle">Find peace and wisdom in the words of Allah</p>
       
+             <div class="select-container">
+          <label for="reciterSelect">اختر القارئ:</label>
+          <select id="reciterSelect">
+            <!-- الخمسة الجدد -->
+            <option value="9">محمد صديق المنشاوي</option>
+            <option value="104">ناصر القطامي</option>
+            <option value="4">أبو بكر الشاطري</option>
+            <option value="159">ماهر المعيقلي</option>
+            <option value="13">سعد الغامدي</option>
+
+            <!-- الخمسة الأولين -->
+            <option value="1">عبد الباسط عبد الصمد</option>
+            <option value="7">مشاري راشد العفاسي</option>
+           <option value="15">عبدالباري الثبيتي</option>
+
+            <option value="6">الحصري</option>
+            <option value="80">هزاع البلوشي</option>
+          </select>
+        </div>
       <div class="quran-verses">
         <div class="verse-card"  data-audio = '${
           allSouras.audio_files[randomSoura[`1`]].audio_url
@@ -262,31 +293,51 @@ const displayData = (prayersTimes = "", quran) => {
     </div>
           <audio id="quranAudio" controls style="display: none"></audio>
 `;
+  changeSelector();
+  document.getElementById("reciterSelect").value = selectSheikh;
   document
     .querySelectorAll(".AyahsNum")
     .forEach((e) => (e.style.color = "#333333"));
-
-  document.querySelectorAll(".verse-card").forEach((card) => {
-    card.addEventListener("click", () => {
-      console.log("play");
-
-      const souraSrc = card.getAttribute("data-audio");
-      audioPlayer.src = souraSrc;
-      const audioPromise = audioPlayer.play();
-      console.log(audioPromise);
-
-      if (audioPromise !== undefined) {
-        audioPromise
-          .then((_) => {})
-          .catch((error) => {
-            // Auto-play was prevented
-            // Show paused UI.
-            console.error(error);
-          });
-      }
-    
-    });
-  });
 };
 
+// اختيار القيمة الموجوده داخل السليكتو عند تغيره كل مره باستخدام ايفينت change
+function changeSelector() {
+  const reciterSelect = document.getElementById("reciterSelect");
 
+  reciterSelect.addEventListener("change", async function () {
+    selectSheikh = this.value;
+    console.log("الشيخ المختار:", selectSheikh);
+
+    // إعادة جلب الصوتيات للقارئ الجديد
+    allSouras = await fetchData(
+      `https://api.quran.com/api/v4/chapter_recitations/${selectSheikh}`
+    );
+
+    // إعادة عرض البيانات مع القارئ الجديد
+    displayData(prayersTimes, quran);
+    // تشغيل الصور عند الضغط علي الكارد
+    playSoura();
+  });
+}
+
+// تشغيل السور بعد الضغط علي كل سورة بعد اختيار الشيخ عن طريق عمل عنصر اوديو في ال html و بعد كده استخدام العنصر ده بعد اختياره فانكشن " audioPlayer.play()"
+function playSoura() {
+  document.querySelectorAll(".verse-card").forEach((card) => {
+    card.addEventListener("click", () => {
+      const souraSrc = card.getAttribute("data-audio").replace(/['"]/g, ""); // إزالة أي تنصيص بالغلط
+      console.log("Playing:", souraSrc);
+
+      // التاكد من ايقاف السورة الاول باستخدام "audioPlayer.pause()"
+      if (!audioPlayer.paused) {
+        audioPlayer.pause(); // إيقاف التشغيل السابق
+        audioPlayer.currentTime = 0; // إعادة التوقيت إلى البداية
+      }
+      // تعيين مصدر الصوت الجديد
+      audioPlayer.src = souraSrc;
+
+      audioPlayer.play().catch((error) => {
+        console.error("Audio play error:", error);
+      });
+    });
+  });
+}
