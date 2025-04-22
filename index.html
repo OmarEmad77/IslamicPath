@@ -47,8 +47,7 @@
           <h2>Begin Your Spiritual Journey</h2>
           <div class="arabic-subtitle">بسم الله الرحمن الرحيم</div>
           <p>
-            Find guidance through prayer times, Quranic wisdom, and Islamic
-            teachings
+            صدقة جارية علي روح الدكتورة لمياء محمد مخلوف ("برجاء الدعاء لها")
           </p>
           <div class="hero-buttons">
             <a href="#prayers" class="btn btn-primary">Prayer Times</a>
@@ -111,6 +110,25 @@
           Find peace and wisdom in the words of Allah
         </p>
 
+        <div class="select-container">
+          <label for="reciterSelect">اختر القارئ:</label>
+          <select id="reciterSelect">
+            <!-- الخمسة الجدد -->
+            <option value="9">محمد صديق المنشاوي</option>
+            <option value="104">ناصر القطامي</option>
+            <option value="4">أبو بكر الشاطري</option>
+            <option value="159">ماهر المعيقلي</option>
+            <option value="13">سعد الغامدي</option>
+
+            <!-- الخمسة الأولين -->
+            <option value="1">عبد الباسط عبد الصمد</option>
+            <option value="7">مشاري راشد العفاسي</option>
+            <option value="15">عبدالباري الثبيتي</option>
+
+            <option value="6">الحصري</option>
+            <option value="80">هزاع البلوشي</option>
+          </select>
+        </div>
         <div class="quran-verses">
           <div class="verse-card">
             <div class="verse-arabic">إِنَّ مَعَ الْعُسْرِ يُسْرًا</div>
@@ -346,6 +364,8 @@
     </footer>
 
     <script>
+      // let selectSheikh = localStorage.getItem("selectSheikh") || "1";
+
       // Simple JavaScript for mobile menu toggle
       document
         .querySelector(".menu-toggle")
