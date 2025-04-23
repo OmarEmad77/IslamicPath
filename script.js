@@ -94,6 +94,7 @@ async function fallbackToManualInput() {
   }
 
   await fetchAndDisplayData(city, country);
+  playSoura();
 }
 
 async function fetchAndDisplayData(city, country) {
