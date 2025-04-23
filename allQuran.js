@@ -45,7 +45,7 @@ async function fetchSouraData() {
 // عرض الداتا بتاع كل سوره
 function allQuran() {
   quranViewTrue = true;
-  setTimeout(async () => {
+  setTimeout( () => {
     console.log(selectSheikh);
 
     console.log(quran);
