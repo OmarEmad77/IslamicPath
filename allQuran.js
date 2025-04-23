@@ -1,40 +1,77 @@
-let allSouras, quran;
-let selectSheikh = localStorage.getItem("selectSheikh") || 1;
+prayerTimesUi = document.querySelector("br");
+prayerTimesUi.replaceWith("");
 
-document.addEventListener("DOMContentLoaded", async () => {
-  quran = await fetchData(`https://api.alquran.cloud/v1/surah`);
-  allSouras = await fetchData(
-    `https://api.quran.com/api/v4/chapter_recitations/${selectSheikh}`
-  );
+let allSourasView;
+const allQuranContainer = document.querySelector(".quran-verses");
 
-  displayAllQuran();
-  playSoura();
-});
+window.onload = async () => {
+  setTimeout(() => {
+    playSoura();
+    document.body.style.display = "block";
+  }, 1500);
+};
+document.body.style.display = "none";
 
-async function fetchData(url) {
-  const res = await fetch(url);
-  return await res.json();
-}
+document
+  .getElementById("reciterSelect")
+  .addEventListener("change", async function (e) {
+    selectSheikh = this.value;
+    console.log(selectSheikh);
+    // هات الأصوات الجديدة بناءً على القارئ المختار
+    // allSouras = await fetchData(
+    //   "https://api.quran.com/api/v4/chapter_recitations/" + selectSheikh
+    // );
+    // localStorage.setItem("selectSheikh", selectSheikh);
 
-function displayAllQuran() {
-  const container = document.querySelector(".quran-verses");
-
-  quran.data.forEach((sura, i) => {
-    const card = `
-      <div class="verse-card" data-audio="${
-        allSouras.audio_files[i]?.audio_url || ""
-      }">
-        <div class="verse-arabic">${sura.name}</div>
-        <div class="verse-translation">${sura.englishName}</div>
-        <div class="verse-reference">${sura.revelationType}
-          <span class='AyahsNum'>(${sura.numberOfAyahs} Ayahs)</span>
-        </div>
-      </div>
-    `;
-    container.insertAdjacentHTML("beforeend", card);
+    fetchSouraData();
+    playSoura();
   });
 
-  document
-    .querySelectorAll(".AyahsNum")
-    .forEach((e) => (e.style.color = "#333"));
+// جلب الداتا بتاع كل سورة وتغيرها بعد اختيار كل شيخ وعمل مقارنه بين عدد عناصر الاري اللي راجع وعدد الكار واختيار الاصغر وتغير ال سورس لكل كارد
+async function fetchSouraData() {
+  allSourasView = await fetchData(
+    "https://api.quran.com/api/v4/chapter_recitations/" + selectSheikh
+  );
+
+  const verseCards = document.querySelectorAll(".verse-card");
+  const audioFiles = allSourasView.audio_files;
+  const count = Math.min(verseCards.length, audioFiles.length);
+
+  for (let i = 0; i < count; i++) {
+    verseCards[i].dataset.audio = audioFiles[i].audio_url;
+  }
 }
+
+// عرض الداتا بتاع كل سوره
+function allQuran() {
+  quranViewTrue = true;
+  setTimeout(() => {
+    console.log(selectSheikh);
+
+    console.log(quran);
+    quran.data.forEach((ele, i) => {
+      const souraCard = `
+        <div class="verse-card" data-audio = '${allSouras.audio_files[i].audio_url}'>
+          <div class="verse-arabic">${ele.name}</div>
+          <div class="verse-translation">
+            ${ele.englishName}
+          </div>
+          <div class="verse-reference"> "${ele.revelationType} 
+           <span class = 'AyahsNum'>"(${ele.numberOfAyahs} Ayahs)<span/></div>
+        </div>
+       
+      `;
+
+      allQuranContainer.insertAdjacentHTML("beforeend", souraCard);
+
+      allQuranContainer.style.direction = "rtl";
+      // allQuranContainer.addEventListener("click", function () {
+      //   window.location.href = "soura.html";
+      // });
+    });
+    document
+      .querySelectorAll(".AyahsNum")
+      .forEach((e) => (e.style.color = "#333333"));
+  }, 1000);
+}
+allQuran();
