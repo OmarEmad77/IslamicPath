@@ -3,10 +3,8 @@ console.log("hello from qasr bagdad");
 // UI Elements
 let prayerTimesUi = document.querySelector("#prayers");
 let quranUi = document.querySelector("#quran");
-// player for Sour
 const audioPlayer = document.getElementById("quranAudio");
 
-// Global Obj from API
 let prayersTimes;
 let quran;
 let quranViewTrue = false;
@@ -18,28 +16,22 @@ window.onload = async () => {
     playSoura();
   }, 1000);
 };
-// handel the time line
+
 const today = new Date();
 const options = {
-  weekday: "long", // اسم اليوم
+  weekday: "long",
   year: "numeric",
-  month: "long", // اسم الشهر
+  month: "long",
   day: "numeric",
 };
 const arabicDate = today.toLocaleDateString("ar-EG", options);
 
-// to delay anything
-const delay = (ms) => {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-};
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-// To Get Data From APIS
 const fetchData = async function (url) {
   try {
     let response = await fetch(url);
-    console.log(response);
     let data = await response.json();
-    console.log(data);
     return data;
   } catch (err) {
     console.error(err);
@@ -47,49 +39,58 @@ const fetchData = async function (url) {
   }
 };
 
-// View DAta while we Fetching lar and lon of user to show Prayers Times on his Postion
 const viewData = async () => {
   document
     .querySelectorAll(".prayer-time")
     .forEach((e) => (e.textContent = `00:00 `));
+
+  if (!navigator.geolocation) {
+    alert("المتصفح لا يدعم تحديد الموقع الجغرافي.");
+    return;
+  }
+
   navigator.geolocation.getCurrentPosition(
-    function (position) {
-      let lat = position.coords.latitude;
-      let lon = position.coords.longitude;
-      // استخدم Nominatim لعمل Reverse Geocoding
-      fetch(
-        `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`
-      )
-        .then((response) => response.json())
-        .then(async (data) => {
-          let country = data.address.country;
-          let city = data.address.city;
-          console.log(data);
+    async function (position) {
+      try {
+        let lat = position.coords.latitude;
+        let lon = position.coords.longitude;
 
-          console.log("البلد: " + country);
-          prayersTimes = await fetchData(
-            `https://api.aladhan.com/v1/timingsByCity/17-04-2025?city=${city}&country=${country}&method=8`
-          );
-          quran = await fetchData(`https://api.alquran.cloud/v1/surah`);
-          console.log(prayersTimes.data, prayersTimes.data, quran.data[0]);
-          console.log(selectSheikh);
-          console.log(reciterSelect);
+        const geoData = await fetch(
+          `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`
+        ).then((res) => res.json());
 
-          allSouras = await fetchData(
-            `https://api.quran.com/api/v4/chapter_recitations/${selectSheikh}`
-          );
-          displayData(prayersTimes, quran);
-          console.log(allSouras);
-        })
-        .catch((error) => {
-          console.error("حصل خطأ في جلب اسم البلد:", error);
-        });
+        let country = geoData.address.country;
+        let city =
+          geoData.address.city ||
+          geoData.address.town ||
+          geoData.address.village;
+
+        prayersTimes = await fetchData(
+          `https://api.aladhan.com/v1/timingsByCity/${today.getDate()}-${
+            today.getMonth() + 1
+          }-${today.getFullYear()}?city=${city}&country=${country}&method=8`
+        );
+        quran = await fetchData(`https://api.alquran.cloud/v1/surah`);
+
+        allSouras = await fetchData(
+          `https://api.quran.com/api/v4/chapter_recitations/${selectSheikh}`
+        );
+
+        displayData(prayersTimes, quran);
+      } catch (error) {
+        console.error("حدث خطأ في جلب البيانات:", error);
+        alert(
+          "تعذر جلب بيانات الموقع. الرجاء المحاولة لاحقًا أو التأكد من اتصال الإنترنت."
+        );
+      }
     },
     function (error) {
       console.error("حدث خطأ أثناء جلب الموقع:", error.message);
+      alert("يرجى السماح للموقع الجغرافي حتى يمكن عرض مواقيت الصلاة بدقة.");
     }
   );
 };
+
 viewData();
 
 //Display السور بطريقة عشوائية كل مره
