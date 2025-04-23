@@ -1,9 +1,13 @@
 prayerTimesUi = document.querySelector("br");
 prayerTimesUi.replaceWith("");
 
-let allSourasView;
+let allQuranSour;
+let allSour;
 const allQuranContainer = document.querySelector(".quran-verses");
-const allQuranSour = JSON.parse(localStorage.getItem("allQuran"));
+document.addEventListener("DOMContentLoaded", () => {
+  allQuranSour = JSON.parse(localStorage.getItem("allQuran"));
+  allSour = JSON.parse(localStorage.getItem("allSour"));
+});
 
 window.onload = async () => {
   setTimeout(() => {
@@ -30,21 +34,17 @@ document
 
 // جلب الداتا بتاع كل سورة وتغيرها بعد اختيار كل شيخ وعمل مقارنه بين عدد عناصر الاري اللي راجع وعدد الكار واختيار الاصغر وتغير ال سورس لكل كارد
 async function fetchSouraData() {
-  allSourasView = await fetchData(
-    "https://api.quran.com/api/v4/chapter_recitations/" + selectSheikh
-  );
-
   const verseCards = document.querySelectorAll(".verse-card");
-  const audioFiles = allSourasView.audio_files;
-  const count = Math.min(verseCards.length, audioFiles.length);
+
+  const count = Math.min(verseCards.length, allSour.length);
 
   for (let i = 0; i < count; i++) {
-    verseCards[i].dataset.audio = audioFiles[i].audio_url;
+    verseCards[i].dataset.audio = allSour[i].audio_url;
   }
 }
 
 // عرض الداتا بتاع كل سوره
-function allQuran() {
+async function allQuran() {
   quranViewTrue = true;
   setTimeout(() => {
     console.log(selectSheikh);
