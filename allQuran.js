@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   allQuranSour = JSON.parse(localStorage.getItem("allQuran"));
   allSouras = JSON.parse(localStorage.getItem("allSour"));
   console.log(allSouras);
+  allQuran();
 });
 allSour = JSON.parse(localStorage.getItem("allSour"));
 window.onload = async () => {
@@ -76,4 +77,4 @@ function allQuran() {
       .forEach((e) => (e.style.color = "#333333"));
   }, 1000);
 }
-allQuran();
+
