@@ -65,7 +65,7 @@ const viewData = async () => {
           geoData.address.town ||
           geoData.address.village ||
           "cairo";
-
+ console.log(country, city);
         prayersTimes = await fetchData(
           `https://api.aladhan.com/v1/timingsByCity/${today.getDate()}-${
             today.getMonth() + 1
