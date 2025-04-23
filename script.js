@@ -59,11 +59,12 @@ const viewData = async () => {
           `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`
         ).then((res) => res.json());
 
-        let country = geoData.address.country;
+      let country = geoData.address.country || "egypt";
         let city =
           geoData.address.city ||
           geoData.address.town ||
-          geoData.address.village;
+          geoData.address.village ||
+          "cairo";
 
         prayersTimes = await fetchData(
           `https://api.aladhan.com/v1/timingsByCity/${today.getDate()}-${
