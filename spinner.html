@@ -42,13 +42,12 @@
       setTimeout(() => {
         if (localStorage.getItem("visited_AllQuran")) {
           window.location.href = "allQuran.html";
-          localStorage.clear();
+          localStorage.removeItem("visited_AllQuran");
         } else if (localStorage.getItem("visited_Soura")) {
           window.location.href = "soura.html";
-          localStorage.clear();
+          localStorage.removeItem("visited_Soura");
         }
       }, 1000);
     </script>
   </body>
 </html>
-
