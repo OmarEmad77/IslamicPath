@@ -2,13 +2,14 @@ prayerTimesUi = document.querySelector("br");
 prayerTimesUi.replaceWith("");
 
 let allQuranSour;
-let allSour;
-const allQuranContainer = document.querySelector(".quran-verses");
-document.addEventListener("DOMContentLoaded", () => {
-  allQuranSour = JSON.parse(localStorage.getItem("allQuran"));
-  allSour = JSON.parse(localStorage.getItem("allSour"));
-});
 
+const allQuranContainer = document.querySelector(".quran-verses");
+document.addEventListener("DOMContentLoaded", async () => {
+  allQuranSour = JSON.parse(localStorage.getItem("allQuran"));
+  allSouras = JSON.parse(localStorage.getItem("allSour"));
+  console.log(allSouras);
+});
+allSour = JSON.parse(localStorage.getItem("allSour"));
 window.onload = async () => {
   setTimeout(() => {
     playSoura();
@@ -44,7 +45,7 @@ async function fetchSouraData() {
 }
 
 // عرض الداتا بتاع كل سوره
-async function allQuran() {
+function allQuran() {
   quranViewTrue = true;
   setTimeout(() => {
     console.log(selectSheikh);
@@ -75,5 +76,4 @@ async function allQuran() {
       .forEach((e) => (e.style.color = "#333333"));
   }, 1000);
 }
-
 allQuran();
