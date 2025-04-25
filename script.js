@@ -110,7 +110,7 @@ async function fetchAndDisplayData(city = "cairo", country = "egypt") {
     allSouras = await fetchData(
       `https://api.quran.com/api/v4/chapter_recitations/${selectSheikh}`
     );
-    localStorage.setItem("allSour", JSON.stringify(allSouras.audio_files));
+    // localStorage.setItem("allSour", JSON.stringify(allSouras.audio_files));
     displayData(prayersTimes, quran);
   } catch (error) {
     console.error("Error fetching prayer or Quran data:", error);
