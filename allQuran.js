@@ -6,11 +6,11 @@ let allQuranSour;
 const allQuranContainer = document.querySelector(".quran-verses");
 document.addEventListener("DOMContentLoaded", async () => {
   allQuranSour = JSON.parse(localStorage.getItem("allQuran"));
-  allSouras = JSON.parse(localStorage.getItem("allSour"));
+  // allSouras = JSON.parse(localStorage.getItem("allSour"));
   console.log(allSouras);
   allQuran();
 });
-allSour = JSON.parse(localStorage.getItem("allSour"));
+
 window.onload = async () => {
   setTimeout(() => {
     playSoura();
@@ -25,9 +25,9 @@ document
     selectSheikh = this.value;
     console.log(selectSheikh);
     // هات الأصوات الجديدة بناءً على القارئ المختار
-    // allSouras = await fetchData(
-    //   "https://api.quran.com/api/v4/chapter_recitations/" + selectSheikh
-    // );
+    allSouras = await fetchData(
+      "https://api.quran.com/api/v4/chapter_recitations/" + selectSheikh
+    );
     // localStorage.setItem("selectSheikh", selectSheikh);
 
     fetchSouraData();
@@ -38,10 +38,11 @@ document
 async function fetchSouraData() {
   const verseCards = document.querySelectorAll(".verse-card");
 
-  const count = Math.min(verseCards.length, allSour.length);
+  const count = Math.min(verseCards.length, allSouras.audio_files.length);
+  console.log(allSouras);
 
   for (let i = 0; i < count; i++) {
-    verseCards[i].dataset.audio = allSour[i].audio_url;
+    verseCards[i].dataset.audio = allSouras.audio_files[i].audio_url;
   }
 }
 
@@ -77,4 +78,3 @@ function allQuran() {
       .forEach((e) => (e.style.color = "#333333"));
   }, 1000);
 }
-
